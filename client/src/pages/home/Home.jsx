@@ -12,17 +12,24 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("/posts" + search);
-      console.log(res);
-      setPosts(res.data);
+      try {
+        const url = "/api/posts";  // Log the URL being requested
+        console.log("Fetching posts from:", url);
+        const res = await axios.get(url);
+        setPosts(res.data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     };
     fetchPosts();
   }, []);
+  
+
   return (
     <>
           <Header/>
             <div className='home'>
-                <Posts/>
+                <Posts posts = {posts}/>
                 <Sidebar/>
           </div>
     </>
