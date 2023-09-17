@@ -4,6 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const multer = require('multer')
 const path = require("path");
+const cors = require('cors');
 
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/users');
@@ -11,6 +12,13 @@ const postRoute = require('./routes/posts')
 const categoryRoute  = require('./routes/categories')
 app.use(express.json())
 app.use("/images", express.static(path.join(__dirname, "/images")));
+
+const PORT = 5000;
+
+app.use(cors({
+  origin: 'http://127.0.0.1:5173',
+  credentials: true,  // Include credentials (e.g., cookies)
+}));
 
 //connecting to db
 const connectDB = async () => {
@@ -47,6 +55,6 @@ app.use('/api/posts',postRoute);
 app.use('/api/categories',categoryRoute);
 
 
-app.listen('5000',()=>{
-    console.log('backend is up')
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

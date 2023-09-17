@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const url = "/api/posts";  // Log the URL being requested
+        const url = "/api/posts" +search;  // Log the URL being requested
         console.log("Fetching posts from:", url);
         const res = await axios.get(url);
         setPosts(res.data);
@@ -22,7 +22,7 @@ export default function Home() {
       }
     };
     fetchPosts();
-  }, []);
+  }, [search]);
   
 
   return (
